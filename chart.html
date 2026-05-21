@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup Climate Burden Index</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: system-ui, -apple-system, sans-serif; }
+
+  .wrap { max-width: 700px; margin: 0 auto; }
+
+  /* ── Header ── */
+  .hdr {
+    background: #f8f8fc;
+    padding: 22px 24px 18px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid #e0e0ec;
+  }
+  .hdr::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #e0e0ec, #00C853, #e0e0ec, #00C853);
+    background-size: 200% 100%;
+    animation: sh 2.5s linear infinite;
+  }
+  @keyframes sh { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .hdr-title {
+    font-size: 18px; font-weight: 800; color: #111;
+    line-height: 1.25; letter-spacing: -0.2px;
+  }
+  .hdr-sub {
+    font-size: 13px; color: #666;
+    margin-top: 6px; line-height: 1.4;
+  }
+
+  /* ── Chart rows ── */
+  .body { padding: 16px 24px 12px; }
+
+  .row {
+    display: flex; align-items: center;
+    gap: 8px; margin-bottom: 9px;
+  }
+
+  .rn {
+    width: 26px; font-size: 14px; font-weight: 800;
+    color: #222; text-align: right; flex-shrink: 0;
+  }
+
+  .rl { width: 144px; text-align: right; flex-shrink: 0; }
+  .rl .name { font-size: 12px; color: #111; font-weight: 600; display: block; line-height: 1.3; }
+  .rl .city { font-size: 11px; color: #999; display: block; margin-top: 1px; }
+
+  .track {
+    flex: 1; position: relative; height: 28px;
+    background: #f0f0f8; border-radius: 4px;
+    cursor: default; min-width: 0;
+  }
+
+  .stack { display: flex; height: 100%; border-radius: 4px; overflow: hidden; }
+  .seg { height: 100%; }
+
+  .score-lbl {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 11px; font-weight: 700; pointer-events: none;
+    white-space: nowrap;
+  }
+  .score-lbl.in  { right: 7px;              color: rgba(255,255,255,0.85); }
+  .score-lbl.out { left: calc(100% + 6px);  color: #777; }
+
+  /* ── Legend (below bars) ── */
+  .legend {
+    padding: 14px 24px 16px;
+    border-top: 1px solid #e8e8f0;
+    margin-top: 6px;
+  }
+  .legend-title {
+    font-size: 11px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.7px;
+    margin-bottom: 10px;
+  }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 7px 16px;
+  }
+  .li { display: flex; align-items: center; gap: 8px; }
+  .ls { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+  .li-text { font-size: 12px; color: #444; line-height: 1.3; }
+  .li-text em { color: #999; font-style: normal; font-size: 11px; display: block; }
+
+  /* ── Tooltip ── */
+  .tip {
+    display: none; position: fixed;
+    background: #fff; border: 1px solid #d0d0e0;
+    border-radius: 8px; padding: 13px 15px;
+    font-size: 13px; color: #111;
+    z-index: 9999; pointer-events: none;
+    min-width: 210px; max-width: 250px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  }
+  .tip.on { display: block; }
+  .tip-name { font-weight: 800; font-size: 14px; margin-bottom: 10px; border-bottom: 1px solid #e0e0ec; padding-bottom: 8px; line-height: 1.3; color: #111; }
+  .tip-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 4px 0; }
+  .tip-lbl { color: #777; font-size: 12px; }
+  .tip-val { font-weight: 700; color: #007a32; font-size: 12px; text-align: right; }
+  .tip-total { padding-top: 7px; margin-top: 3px; border-top: 1px solid #e0e0ec; font-weight: 800; }
+  .tip-total .tip-val { color: #111; font-size: 13px; }
+
+  /* ── Footer ── */
+  .ftr {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 24px 14px; border-top: 1px solid #e8e8f0;
+  }
+  .ftr-l { font-size: 10px; color: #bbb; max-width: 75%; line-height: 1.4; }
+  .ftr-r { font-size: 13px; font-weight: 800; color: #00C853; letter-spacing: 0.4px; }
+
+  .explanation {
+    padding: 10px 24px 14px;
+    font-family: system-ui, sans-serif;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+    background: #f8f8fc;
+    border-top: 1px solid #e8e8f0;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .exp-icon {
+    color: #00C853;
+    font-size: 16px;
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 580px) {
+    .rl { width: 106px; }
+    .rl .name { font-size: 11px; }
+    .body { padding: 12px 14px 8px; }
+    .legend { padding: 12px 14px 14px; }
+    .hdr { padding: 16px 14px 14px; }
+    .ftr { padding: 8px 14px 12px; }
+    .hdr-title { font-size: 15px; }
+    .legend-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-title">2026 World Cup Climate Burden Index — All 16 Host Venues Ranked</div>
+    <div class="hdr-sub">Hover any bar to see key stats for that city.</div>
+  </div>
+
+  <!-- Bars -->
+  <div class="body" id="body"></div>
+
+  <!-- Explanation -->
+  <div class="explanation">
+    <span class="exp-icon">&#9432;</span>
+    Each bar is broken into five coloured sections — heat, grid carbon, water stress, flood risk, and waste. The longer the total bar, the greater the overall burden on that host city.
+  </div>
+
+  <!-- Legend below bars -->
+  <div class="legend">
+    <div class="legend-title">What each colour represents</div>
+    <div class="legend-grid" id="legend"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="ftr">
+    <div class="ftr-l">Sources: SGR Climate Blind Spot Report (July 2025) · EPA eGRID 2022 · WRI Aqueduct 4.0 · Data verified May 2026</div>
+    <div class="ftr-r">ACTION NETWORK</div>
+  </div>
+
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const DIMS = [
+  { key:'heat',  label:'Heat',  desc:'Summer heat danger level',        color:'#d63031', weight:.25 },
+  { key:'grid',  label:'Grid',  desc:'Electricity grid carbon',          color:'#e17055', weight:.25 },
+  { key:'water', label:'Water', desc:'City water stress',                color:'#0984e3', weight:.20 },
+  { key:'flood', label:'Flood', desc:'Flood risk',                       color:'#6c5ce7', weight:.15 },
+  { key:'waste', label:'Waste', desc:'Landfill waste per match',         color:'#00b894', weight:.15 },
+];
+
+const venues = [
+  { name:'NRG Stadium',           city:'Houston',       score:100.0, heat:96.6, grid:74.5, water:70.5, flood:61.9, waste:74.1,
+    stats:['July heat index: 28.2°C (danger level)','Grid carbon/match: 28.2 tonnes CO2','Homes powered/match: 82'] },
+  { name:'AT&T Stadium',          city:'Dallas',        score:98.5,  heat:100,  grid:74.5, water:88.6, flood:8.6,  waste:76.4,
+    stats:['July heat index: 28.6°C (highest in dataset)','Grid carbon/match: 31.2 tonnes CO2','Matches hosted: 9 — most of any venue'] },
+  { name:'Hard Rock Stadium',     city:'Miami',         score:95.4,  heat:94.5, grid:70.6, water:52.3, flood:100,  waste:49.8,
+    stats:['Property flood risk: 8.1/10 — highest in tournament','July heat index: 28.1°C','Investment plan: none published'] },
+  { name:'Estadio BBVA',          city:'Guadalupe',     score:94.1,  heat:83.2, grid:86.3, water:95.5, flood:19.4, waste:57.2,
+    stats:['Water stress: 4.7/5 — Extremely High','City recycling rate: 12%','Grid carbon/match: 23.1 tonnes CO2'] },
+  { name:'Arrowhead Stadium',     city:'Kansas City',   score:85.7,  heat:86.1, grid:100,  water:48.9, flood:6.5,  waste:63.3,
+    stats:['Grid carbon/match: 39.7t — dirtiest grid in tournament','79× more carbon than Vancouver','July heat index: 26.8°C — above FIFA threshold'] },
+  { name:'Estadio Akron',         city:'Guadalajara',   score:78.0,  heat:45.0, grid:86.3, water:91.0, flood:8.6,  waste:57.8,
+    stats:['Water stress: 4.5/5 — Extremely High','Recycling rate: 10% — lowest in tournament','Grid carbon/match: 22.4 tonnes CO2'] },
+  { name:'Estadio Azteca',        city:'Mexico City',   score:77.9,  heat:0.0,  grid:86.3, water:100,  flood:22.6, waste:100,
+    stats:['Water stress: 4.9/5 — highest in tournament','Waste not recycled: 409,170 lbs — 20 garbage trucks','Recycling rate: 15%'] },
+  { name:'Mercedes-Benz Stadium', city:'Atlanta',       score:76.8,  heat:73.4, grid:78.4, water:43.2, flood:16.1, waste:62.4,
+    stats:['July heat index: 26.1°C','Grid carbon/match: 29.1 tonnes CO2','LEED Platinum certified'] },
+  { name:'Lincoln Financial',     city:'Philadelphia',  score:66.5,  heat:62.8, grid:60.8, water:31.8, flood:16.1, waste:62.1,
+    stats:['July heat index: 25.3°C','Northeast US flood risk rising','Grid carbon/match: 22.3 tonnes CO2'] },
+  { name:'SoFi Stadium',          city:'Los Angeles',   score:56.8,  heat:50.6, grid:39.2, water:97.7, flood:2.2,  waste:10.7,
+    stats:['Water stress: 4.8/5 — 2nd highest, chronic drought','Recycling rate: 76% — one of best','Grid carbon/match: 14.8 tonnes CO2'] },
+  { name:'MetLife Stadium',       city:'New York/NJ',   score:56.1,  heat:59.4, grid:37.3, water:34.1, flood:0.0,  waste:62.4,
+    stats:['July heat index: 24.1°C','Grid carbon/match: 16.5 tonnes CO2','Homes powered/match: 94'] },
+  { name:"Levi's Stadium",        city:'San Francisco', score:52.4,  heat:43.3, grid:39.2, water:68.2, flood:0.0,  waste:0.0,
+    stats:['Road flood risk: 5.65/10','Recycling rate: 80%','Grid carbon/match: 14.4 tonnes CO2'] },
+  { name:'Gillette Stadium',      city:'Boston',        score:43.3,  heat:51.7, grid:41.2, water:15.9, flood:2.2,  waste:42.8,
+    stats:['July heat index: 23.4°C','Grid carbon/match: 14.5 tonnes CO2','Low overall burden'] },
+  { name:'BMO Field',             city:'Toronto',       score:24.2,  heat:22.6, grid:5.9,  water:11.4, flood:4.3,  waste:13.0,
+    stats:['Grid carbon/match: 1.8 tonnes CO2','Water stress: 1.0/5 — Low','Ontario nuclear and hydro grid'] },
+  { name:'Lumen Field',           city:'Seattle',       score:18.9,  heat:13.6, grid:3.9,  water:6.8,  flood:6.5,  waste:24.2,
+    stats:['Grid carbon/match: 2.1 tonnes CO2','July heat index: 20.0°C','Pacific Northwest hydro grid'] },
+  { name:'BC Place',              city:'Vancouver',     score:14.0,  heat:11.2, grid:0.0,  water:0.0,  flood:16.1, waste:8.0,
+    stats:['Grid carbon/match: 0.5 tonnes CO2 — lowest in tournament','Water stress: 0.5/5 — Very Low','BC Hydro — 98% renewable'] },
+];
+
+// Build legend
+const leg = document.getElementById('legend');
+DIMS.forEach(d => {
+  const el = document.createElement('div');
+  el.className = 'li';
+  el.innerHTML = `
+    <div class="ls" style="background:${d.color}"></div>
+    <div class="li-text">${d.label} <em>${d.desc} · ${Math.round(d.weight*100)}% weight</em></div>
+  `;
+  leg.appendChild(el);
+});
+
+// Build bars
+const body = document.getElementById('body');
+const tip = document.getElementById('tip');
+
+venues.forEach((v, i) => {
+  const total = v.score;
+  const contribs = DIMS.map(d => ({ ...d, c: v[d.key] * d.weight }));
+  const sum = contribs.reduce((s, x) => s + x.c, 0);
+
+  const segs = contribs.map(d => {
+    const w = (d.c / sum) * total;
+    return `<div class="seg" style="width:${w}%;background:${d.color}"></div>`;
+  }).join('');
+
+  const isLong = total > 38;
+
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = `
+    <div class="rn">${i+1}</div>
+    <div class="rl">
+      <span class="name">${v.name}</span>
+      <span class="city">${v.city}</span>
+    </div>
+    <div class="track">
+      <div class="stack" style="width:${total}%">${segs}</div>
+      <span class="score-lbl ${isLong ? 'in' : 'out'}">${total.toFixed(1)}</span>
+    </div>
+  `;
+
+  const track = row.querySelector('.track');
+
+  track.addEventListener('mousemove', e => {
+    const rows = v.stats.map(s => {
+      const idx = s.indexOf(': ');
+      if (idx === -1) return `<div class="tip-row"><span class="tip-lbl">${s}</span></div>`;
+      const label = s.slice(0, idx);
+      const val = s.slice(idx + 2);
+      return `<div class="tip-row"><span class="tip-lbl">${label}</span><span class="tip-val">${val}</span></div>`;
+    }).join('');
+
+    tip.innerHTML = `
+      <div class="tip-name">${v.name}<br><span style="font-weight:400;font-size:12px;color:#888">${v.city}</span></div>
+      ${rows}
+      <div class="tip-row tip-total">
+        <span class="tip-lbl">Burden Score</span>
+        <span class="tip-val">${total.toFixed(1)} / 100</span>
+      </div>
+    `;
+    tip.classList.add('on');
+
+    const x = e.clientX + 14;
+    const y = e.clientY - 10;
+    const tw = 250;
+    tip.style.left = (x + tw > window.innerWidth ? x - tw - 20 : x) + 'px';
+    tip.style.top  = Math.max(8, Math.min(y, window.innerHeight - 220)) + 'px';
+  });
+
+  track.addEventListener('mouseleave', () => tip.classList.remove('on'));
+  body.appendChild(row);
+});
+</script>
+</body>
+</html>
