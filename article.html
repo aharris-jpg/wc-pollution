@@ -1,0 +1,623 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+
+<div class="an-cc">
+<style>
+  .an-cc *, .an-cc *::before, .an-cc *::after { box-sizing: border-box; }
+
+  .an-cc {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 20px;
+    line-height: 1.75;
+    color: #1a1a2e;
+    background: #fff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 28px 64px;
+  }
+
+  .an-cc h1 {
+    font-family: system-ui, sans-serif;
+    font-size: clamp(28px, 4.5vw, 40px);
+    font-weight: 800;
+    line-height: 1.12;
+    color: #111;
+    margin: 0 0 36px;
+    padding-top: 52px;
+    letter-spacing: -0.5px;
+  }
+
+  .an-cc h2 {
+    font-family: system-ui, sans-serif;
+    font-size: clamp(21px, 2.8vw, 25px);
+    font-weight: 700;
+    color: #111;
+    margin: 56px 0 20px;
+    padding-left: 16px;
+    border-left: 4px solid #00C853;
+    line-height: 1.3;
+  }
+
+  .an-cc h3 {
+    font-family: system-ui, sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: #111;
+    margin: 52px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .an-cc p {
+    margin: 0 0 20px;
+    color: #2a2a3a;
+    font-size: 20px;
+  }
+
+  .an-cc strong { color: #111; font-weight: 600; }
+  .an-cc a { color: #007a32; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Findings list */
+  .an-cc ul.f { margin: 0 0 28px; padding: 0; list-style: none; }
+  .an-cc ul.f li {
+    padding: 14px 0 14px 28px;
+    border-bottom: 1px solid #e8e8f0;
+    position: relative;
+    color: #2a2a3a;
+    font-size: 18px;
+    line-height: 1.68;
+  }
+  .an-cc ul.f li::before {
+    content: '';
+    position: absolute; left: 0; top: 24px;
+    width: 9px; height: 9px;
+    background: #00C853; border-radius: 50%;
+  }
+  .an-cc ul.f li:last-child { border-bottom: none; }
+
+  /* Rank badge */
+  .rb {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 7px;
+    font-family: system-ui, sans-serif;
+    font-size: 15px; font-weight: 800; flex-shrink: 0;
+  }
+  .rb-1 { background: #00C853; color: #fff; }
+  .rb-2 { background: #1a7a3a; color: #fff; }
+  .rb-3 { background: #2d5c3e; color: #fff; }
+  .rb-n { background: #e8e8f0; color: #333; }
+
+  .em {
+    font-family: system-ui, sans-serif;
+    font-size: 14px; color: #888;
+    margin: 2px 0 18px; font-style: italic;
+  }
+
+  /* Impact box */
+  .ib {
+    background: #f4fdf7;
+    border: 1px solid #c8ecd5;
+    border-left: 4px solid #00C853;
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 18px 0 24px;
+    font-family: system-ui, sans-serif;
+  }
+  .ib-lbl {
+    font-size: 12px; font-weight: 700; color: #007a32;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px;
+  }
+  .ib-stats { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ib-stat {
+    background: #fff; border: 1px solid #c8ecd5;
+    border-radius: 8px; padding: 12px 16px;
+    min-width: 150px; flex: 1;
+  }
+  .ib-stat .sv {
+    font-size: 22px; font-weight: 800; color: #111;
+    line-height: 1.2; display: block;
+  }
+  .ib-stat .sl {
+    font-size: 13px; color: #555;
+    line-height: 1.4; display: block; margin-top: 4px;
+  }
+
+  /* Data pills */
+  .pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0 38px;
+    padding-bottom: 38px;
+    border-bottom: 1px solid #e8e8f0;
+  }
+  .pill {
+    background: #f0f0f8; border: 1px solid #e0e0ec;
+    border-radius: 20px; padding: 6px 14px;
+    font-family: system-ui, sans-serif;
+    font-size: 14px; color: #555; white-space: nowrap;
+  }
+  .pill span { color: #007a32; font-weight: 700; }
+
+  /* Embed wrapper */
+  .emb {
+    border: 1px solid #e0e0ec;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 32px 0;
+  }
+  .emb iframe { display: block; width: 100%; border: none; }
+
+  /* Callout table */
+  .tbl {
+    width: 100%; border-collapse: collapse;
+    margin: 22px 0;
+    font-family: system-ui, sans-serif; font-size: 16px;
+  }
+  .tbl th {
+    background: #1A1A2E; border: 1px solid #1A1A2E;
+    padding: 12px 16px; text-align: left;
+    color: #fff; font-weight: 700;
+  }
+  .tbl td {
+    border: 1px solid #e0e0ec;
+    padding: 11px 16px; color: #333; font-size: 15px;
+  }
+  .tbl tr:nth-child(even) td { background: #f8f8fc; }
+  .tbl td.hi { color: #c0392b; font-weight: 700; }
+  .tbl td.lo { color: #007a32; font-weight: 700; }
+
+  /* Expert comment */
+  .expert {
+    background: #f8f8fc;
+    border-left: 4px solid #00C853;
+    border-radius: 0 10px 10px 0;
+    padding: 28px 32px; margin: 44px 0;
+  }
+  .expert p {
+    margin: 0 0 18px; font-style: italic;
+    color: #444; font-size: 19px;
+  }
+  .expert p:last-of-type { margin-bottom: 0; }
+  .expert-attr {
+    font-family: system-ui, sans-serif;
+    font-size: 13px; color: #888;
+    margin-top: 20px !important;
+    font-style: normal !important;
+  }
+
+  /* Internal links block */
+  .links {
+    background: #f4fdf7; border: 1px solid #c8ecd5;
+    border-radius: 8px; padding: 18px 22px; margin: 44px 0;
+    font-family: system-ui, sans-serif; font-size: 16px; color: #444;
+  }
+  .links a { color: #007a32; }
+
+  /* Methodology */
+  .method {
+    background: #f8f8fc; border: 1px solid #e0e0ec;
+    border-radius: 10px; padding: 28px 32px; margin: 52px 0 28px;
+  }
+  .method h2 { margin-top: 0; font-size: 17px; border-left-width: 3px; margin-bottom: 14px; }
+  .method p { font-size: 15px; font-family: system-ui, sans-serif; color: #666; margin-bottom: 12px; }
+  .method strong { color: #444; }
+
+  /* Sources */
+  .src { margin: 28px 0; font-family: system-ui, sans-serif; font-size: 14px; }
+  .src h2 { font-size: 17px; margin-top: 0; }
+  .src ul { margin: 0; padding: 0; list-style: none; }
+  .src ul li { padding: 7px 0 7px 20px; position: relative; color: #666; }
+  .src ul li::before { content: '·'; position: absolute; left: 4px; color: #00C853; font-size: 18px; top: 5px; }
+  .src a { color: #007a32; }
+
+  .final {
+    font-style: italic; color: #888; font-size: 18px;
+    text-align: center; margin: 44px 0 0;
+    padding-top: 32px; border-top: 1px solid #e8e8f0;
+  }
+
+  /* Inline pic styles */
+  .pic-wrap {
+    border: 1px solid #e0e0ec;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 32px 0;
+  }
+  .pic-wrap img {
+    display: block; width: 100%;
+    height: 360px; object-fit: cover;
+  }
+  .pic-caption {
+    background: #f8f8fc;
+    font-family: system-ui, sans-serif;
+    font-size: 13px; color: #888;
+    padding: 12px 18px; line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .an-cc { padding: 0 18px 44px; font-size: 18px; }
+    .an-cc p, .an-cc ul.f li { font-size: 18px; }
+    .ib-stats { flex-direction: column; }
+    .ib-stat { min-width: unset; }
+    .expert { padding: 20px; }
+    .pic-wrap img { height: 240px; }
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════
+     H1
+════════════════════════════════════════════ -->
+<h1>2026 World Cup Host City Climate Burden Index: All 16 Venues Ranked (2026)</h1>
+
+<!-- ═══════════════════════════════════════════
+     INTRO
+════════════════════════════════════════════ -->
+<h2>Which Host Cities Carry the Heaviest Load?</h2>
+
+<p>The 2026 World Cup runs across 16 cities in the US, Canada, and Mexico from June through July. An estimated 5.9 billion people will follow it.</p>
+
+<p>We looked at five things for each venue: how dangerous the summer heat is, how carbon-heavy the local electricity grid is, how drought-stressed the city's water supply already is, how exposed the stadium is to flooding, and how much waste ends up in landfill after a sold-out match.</p>
+
+<p>We combined those five measures into a single Burden Score for each city. Higher score means greater environmental pressure on the host community.</p>
+
+<p><strong>The headline finding:</strong> Miami ranks 3rd with the highest flood risk of any venue and 8 matches in Atlantic hurricane season — yet no published investment plan exists for the venue. Houston and Dallas, ranked 1st and 2nd, both have committed plans.</p>
+
+<p>Extreme heat changes how soccer is played. It slows players, increases stoppages, and creates unpredictable in-game swings. For anyone following matches closely, understanding how to take advantage of <a href="https://www.actionnetwork.com/soccer/how-to-be-smart-take-advantage-of-live-betting-in-soccer-wagering">live betting in soccer</a> starts with knowing the conditions on the ground.</p>
+
+<!-- ═══════════════════════════════════════════
+     KEY FINDINGS
+════════════════════════════════════════════ -->
+<h2>Key Findings</h2>
+<ul class="f">
+  <li><strong>Houston ranks 1st, Dallas 2nd.</strong> Both Texas cities record July heat levels that sports doctors classify as dangerous for competition. Both run on a coal-heavy electricity grid and together host 17 matches at the peak of summer.</li>
+  <li><strong>Miami ranks 3rd.</strong> The flood risk around Hard Rock Stadium scores 8.1 out of 10 — the highest of any host venue. Its 8 matches fall directly in hurricane season. No published investment plan exists for the venue.</li>
+  <li><strong>Kansas City produces 79 times more electricity-related carbon than Vancouver.</strong> One Arrowhead match: 39.7 tonnes of CO2 from the grid. One BC Place match: 0.5 tonnes. Same tournament, same energy demand, completely different grid.</li>
+  <li><strong>Mexico City generates more landfill waste per match than any other venue.</strong> One sold-out Azteca match fills 20 garbage trucks with unrecycled waste, in a city that recycles just 15% of what it collects.</li>
+  <li><strong>Los Angeles and Mexico City are in severe drought.</strong> Both score Extremely High on the global water stress index. Together they host 13 matches during peak dry season.</li>
+  <li><strong>10 of the 16 venues have no published climate investment plan</strong> — including Miami, Los Angeles, Philadelphia, and both Canadian cities.</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════
+     CHART EMBED
+════════════════════════════════════════════ -->
+<div class="emb">
+  <iframe src="https://aharris-jpg.github.io/wc-pollution/chart.html" height="780" scrolling="no"></iframe>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TOP 10
+════════════════════════════════════════════ -->
+<h2>The Top 10 Most Climate-Burdened Venues</h2>
+
+<!-- #1 Houston -->
+<h3><span class="rb rb-1">1</span> NRG Stadium — Houston, Texas</h3>
+<p class="em">8 matches &nbsp;·&nbsp; Burden Score: 100</p>
+
+<p>Houston leads the ranking. In July, the heat and humidity combined reach a level that sports medicine experts classify as dangerous — the point at which outdoor athletic competition should stop.</p>
+
+<p>It is not just hot. It is the kind of humid, suffocating heat where the human body struggles to cool itself even at rest. Players competing for 90 minutes in those conditions face genuine health risk.</p>
+
+<p>The electricity grid here is one of the most coal and gas dependent in North America. Running the stadium for one match produces 28.2 tonnes of CO2 from electricity alone — the same as powering 82 American homes for a full month. The city recycles just 19% of its waste. A $46.4 million climate investment plan has been committed.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Houston</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">82 homes</span><span class="sl">Equivalent US homes powered for a month by one match's electricity</span></div>
+    <div class="ib-stat"><span class="sv">321,740 lbs</span><span class="sl">Waste not recycled per match — 16 garbage trucks</span></div>
+    <div class="ib-stat"><span class="sv">$989/seat</span><span class="sl">Estimated cost of climate upgrades needed per seat</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>100.0</span></div>
+  <div class="pill">July heat index <span>28.2°C — above danger level</span></div>
+  <div class="pill">Grid carbon per match <span>28.2 tonnes CO2</span></div>
+  <div class="pill">City recycling rate <span>19%</span></div>
+  <div class="pill">Investment plan <span>$46.4M committed</span></div>
+</div>
+
+<!-- #2 Dallas -->
+<h3><span class="rb rb-2">2</span> AT&T Stadium — Dallas, Texas</h3>
+<p class="em">9 matches — joint most of any venue &nbsp;·&nbsp; Burden Score: 98.5</p>
+
+<p>Dallas records the highest July heat reading in the dataset. The city averages 37 days per year above 95°F.</p>
+
+<p>AT&T Stadium is the joint-largest venue in the tournament and hosts more matches than anyone else. One match here generates 31.2 tonnes of carbon from electricity — enough to power 91 American homes for a month. A $59.4 million investment plan has been committed, the largest single amount of any city in the tournament.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Dallas</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">91 homes</span><span class="sl">Equivalent US homes powered for a month by one match's electricity</span></div>
+    <div class="ib-stat"><span class="sv">343,200 lbs</span><span class="sl">Waste not recycled per match — 17 garbage trucks</span></div>
+    <div class="ib-stat"><span class="sv">$992/seat</span><span class="sl">Estimated cost of climate upgrades needed per seat</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>98.5</span></div>
+  <div class="pill">July heat index <span>28.6°C — highest in dataset</span></div>
+  <div class="pill">Grid carbon per match <span>31.2 tonnes CO2</span></div>
+  <div class="pill">Matches hosted <span>9 — joint most</span></div>
+  <div class="pill">Investment plan <span>$59.4M committed</span></div>
+</div>
+
+<!-- PIC 1 -->
+<div class="pic-wrap">
+  <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1200&q=80" alt="Large outdoor football stadium filled with fans during a summer match" loading="lazy">
+  <div class="pic-caption">NRG Stadium (Houston) and AT&T Stadium (Dallas) rank 1st and 2nd — extreme summer heat, a coal-heavy electricity grid, and 17 matches between them. Photo: Unsplash</div>
+</div>
+
+<!-- #3 Miami -->
+<h3><span class="rb rb-3">3</span> Hard Rock Stadium — Miami, Florida</h3>
+<p class="em">8 matches during hurricane season &nbsp;·&nbsp; Burden Score: 95.4</p>
+
+<p>Miami ranks 3rd. The July heat index hits 28.1°C — above the level sports doctors say is dangerous for outdoor competition. But heat is not the main risk here. Flooding is.</p>
+
+<p>Hard Rock Stadium has a property flood risk score of <strong>8.1 out of 10</strong> — the highest of any host venue. That figure comes from First Street Foundation, a US non-profit that models flood exposure for every American property. It means more than 8% of the properties surrounding the stadium face materially increased flood risk.</p>
+
+<p>All 8 Miami matches are in June and July — the start of Atlantic hurricane season. A serious storm during that window would threaten the stadium, surrounding infrastructure, and tens of thousands of fans.</p>
+
+<p>Climate experts have estimated the venue needs $25 to $35 million in flood and storm protection. At 65,326 seats, that works out to roughly <strong>$459 per seat</strong>. Miami does not appear in any publicly available investment plan for the tournament.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Miami</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">8.1 out of 10</span><span class="sl">Property flood risk — highest of any host venue in the tournament</span></div>
+    <div class="ib-stat"><span class="sv">~$459/seat</span><span class="sl">Estimated climate upgrade cost per seat — with no committed plan</span></div>
+    <div class="ib-stat"><span class="sv">233,540 lbs</span><span class="sl">Waste not recycled per match — 12 garbage trucks</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>95.4</span></div>
+  <div class="pill">Flood risk <span>8.1/10 — highest in tournament</span></div>
+  <div class="pill">July heat index <span>28.1°C</span></div>
+  <div class="pill">Grid carbon per match <span>24.2 tonnes CO2</span></div>
+  <div class="pill">Investment plan <span>None published</span></div>
+</div>
+
+<!-- #4 Guadalupe -->
+<h3><span class="rb rb-n">4</span> Estadio BBVA — Guadalupe, Mexico</h3>
+<p class="em">5 matches &nbsp;·&nbsp; Burden Score: 94.1</p>
+
+<p>Guadalupe sits in Mexico's industrial north, in the greater Monterrey area. The city already draws close to its maximum sustainable water supply before the tournament adds any extra demand — scoring 4.7 out of 5 on the World Resources Institute's global water stress index.</p>
+
+<p>The city recycles just 12% of its waste, one of the lowest rates of any host city. Mexico's electricity grid is more carbon-intensive than most of North America. A $12 million investment plan has been committed for this venue.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Guadalupe</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">4.7/5</span><span class="sl">Water stress — Extremely High. The city is already near its water limit.</span></div>
+    <div class="ib-stat"><span class="sv">12%</span><span class="sl">City recycling rate — among the lowest of any host city</span></div>
+    <div class="ib-stat"><span class="sv">248,534 lbs</span><span class="sl">Waste not recycled per match — 12 garbage trucks</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>94.1</span></div>
+  <div class="pill">Water stress <span>4.7/5 — Extremely High</span></div>
+  <div class="pill">Grid carbon per match <span>23.1 tonnes CO2</span></div>
+  <div class="pill">Investment plan <span>$12M committed</span></div>
+</div>
+
+<!-- #5 Kansas City -->
+<h3><span class="rb rb-n">5</span> Arrowhead Stadium — Kansas City, Missouri</h3>
+<p class="em">7 matches &nbsp;·&nbsp; Burden Score: 85.7</p>
+
+<p>Kansas City sits on the most carbon-intensive electricity grid of any 2026 host. The grid that covers this part of the US runs primarily on coal and natural gas, producing 0.52 kg of carbon for every kilowatt-hour of electricity.</p>
+
+<p>Vancouver's grid produces 0.01 kg per kilowatt-hour — almost entirely from renewable hydropower. One match in Kansas City generates <strong>39.7 tonnes of carbon from electricity alone</strong>. One match in Vancouver generates 0.5 tonnes. The same tournament. 79 times the carbon cost.</p>
+
+<p>The July heat index also sits at 26.8°C — just above the 26°C threshold that FIFA identifies as requiring action. A $15 million investment plan has been committed.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Kansas City</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">39.7 tonnes CO2</span><span class="sl">Carbon from electricity per match — 79× more than Vancouver</span></div>
+    <div class="ib-stat"><span class="sv">87 homes</span><span class="sl">Equivalent US homes powered for a month by one match's electricity</span></div>
+    <div class="ib-stat"><span class="sv">285,796 lbs</span><span class="sl">Waste not recycled per match — 14 garbage trucks</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>85.7</span></div>
+  <div class="pill">Grid carbon per kWh <span>0.52 kg — dirtiest in tournament</span></div>
+  <div class="pill">Grid carbon per match <span>39.7 tonnes CO2</span></div>
+  <div class="pill">July heat index <span>26.8°C — above FIFA threshold</span></div>
+</div>
+
+<!-- PIC 2 -->
+<div class="pic-wrap">
+  <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200&q=80" alt="Football fans cheering in a packed stadium on a sunny matchday" loading="lazy">
+  <div class="pic-caption">Arrowhead Stadium in Kansas City sits on the most carbon-intensive electricity grid of any 2026 host — generating 79 times more electricity-related carbon per match than BC Place in Vancouver. Photo: Unsplash</div>
+</div>
+
+<!-- #6 Guadalajara -->
+<h3><span class="rb rb-n">6</span> Estadio Akron — Guadalajara, Mexico</h3>
+<p class="em">5 matches &nbsp;·&nbsp; Burden Score: 78.0</p>
+
+<p>Guadalajara has lower summer temperatures than most hosts. Water and waste push it into the top half of the ranking.</p>
+
+<p>The city scores 4.5 out of 5 on the global water stress index and has the lowest recycling rate of any host city at just 10%. The tournament adds meaningful water demand to a region already managing a long-term scarcity problem.</p>
+
+<div class="pills">
+  <div class="pill">Score <span>78.0</span></div>
+  <div class="pill">Water stress <span>4.5/5 — Extremely High</span></div>
+  <div class="pill">Recycling rate <span>10% — lowest in tournament</span></div>
+  <div class="pill">Waste not recycled/match <span>246,758 lbs</span></div>
+</div>
+
+<!-- #7 Mexico City -->
+<h3><span class="rb rb-n">7</span> Estadio Azteca — Mexico City, Mexico</h3>
+<p class="em">5 matches &nbsp;·&nbsp; Burden Score: 77.9</p>
+
+<p>Mexico City has the lowest summer temperatures of any host — it sits more than 7,000 feet above sea level. Everything else about it pushes it up this ranking.</p>
+
+<p>The city's water situation is one of the most serious of any major urban area on earth. Mexico City draws from an underground aquifer that has been severely over-extracted for decades. The ground itself is sinking — by several centimetres per year in some areas — as water is pumped from below. The World Resources Institute scores the city at 4.9 out of 5 on water stress, the highest of any host city.</p>
+
+<p>On waste, Azteca is the worst venue in the dataset. At 87,523 seats, one sold-out match generates 409,170 lbs of waste — with just 15% recycled. That is <strong>20 garbage trucks of unrecycled rubbish per match</strong>, and over 2 million lbs going to landfill across 5 scheduled games.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Mexico City</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">4.9/5</span><span class="sl">Water stress — highest of any host city. The aquifer is severely over-extracted.</span></div>
+    <div class="ib-stat"><span class="sv">409,170 lbs</span><span class="sl">Waste not recycled per match — the most of any venue in the tournament</span></div>
+    <div class="ib-stat"><span class="sv">20 garbage trucks</span><span class="sl">Volume of unrecycled waste from a single sold-out match</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>77.9</span></div>
+  <div class="pill">Water stress <span>4.9/5 — highest in tournament</span></div>
+  <div class="pill">Waste/match <span>409,170 lbs — most in tournament</span></div>
+  <div class="pill">Recycling rate <span>15%</span></div>
+</div>
+
+<!-- #8 Atlanta -->
+<h3><span class="rb rb-n">8</span> Mercedes-Benz Stadium — Atlanta, Georgia</h3>
+<p class="em">8 matches &nbsp;·&nbsp; Burden Score: 76.8</p>
+
+<p>Atlanta ranks 8th with a July heat index of 26.1°C — just over the 26°C threshold FIFA identifies as requiring action.</p>
+
+<p>What makes it different from other venues with similar heat is the stadium itself. Mercedes-Benz Stadium holds a LEED Platinum certification, the highest green building standard, and has a 680,000-gallon rainwater harvesting tank built into the structure. Both reduce the waste and water burden meaningfully. A $17 million investment plan has been committed.</p>
+
+<div class="pills">
+  <div class="pill">Score <span>76.8</span></div>
+  <div class="pill">July heat index <span>26.1°C — above FIFA threshold</span></div>
+  <div class="pill">Grid carbon per match <span>29.1 tonnes CO2</span></div>
+  <div class="pill">Investment plan <span>$17M committed</span></div>
+</div>
+
+<!-- #9 Philadelphia -->
+<h3><span class="rb rb-n">9</span> Lincoln Financial Field — Philadelphia, Pennsylvania</h3>
+<p class="em">7 matches &nbsp;·&nbsp; Burden Score: 66.5</p>
+
+<p>Philadelphia ranks 9th with a July heat index of 25.3°C — just below FIFA's threshold. The bigger concern is flooding.</p>
+
+<p>The Northeast United States has seen extreme rainfall events increase by 53% compared to historical norms. Flash flooding in the region can overwhelm city drainage systems rapidly, affecting hundreds of thousands of commuters and visitors during a tournament window.</p>
+
+<div class="pills">
+  <div class="pill">Score <span>66.5</span></div>
+  <div class="pill">July heat index <span>25.3°C</span></div>
+  <div class="pill">Grid carbon per match <span>22.3 tonnes CO2</span></div>
+  <div class="pill">Recycling rate <span>27%</span></div>
+</div>
+
+<!-- #10 LA -->
+<h3><span class="rb rb-n">10</span> SoFi Stadium — Los Angeles, California</h3>
+<p class="em">8 matches &nbsp;·&nbsp; Burden Score: 56.8</p>
+
+<p>Los Angeles has a mild July heat index of 23.1°C — well below the danger threshold. But the city scores 4.8 out of 5 on the global water stress index. Southern California has been managing chronic drought for years, and the tournament adds significant extra demand at the peak of the dry season.</p>
+
+<p>The good news: California's electricity grid is significantly cleaner than Texas or the Midwest, and LA recycles 76% of its waste — one of the highest rates in the dataset. Those two factors pull the overall burden score down considerably. Still, no investment plan has been published for this venue.</p>
+
+<div class="ib">
+  <div class="ib-lbl">What one match costs Los Angeles</div>
+  <div class="ib-stats">
+    <div class="ib-stat"><span class="sv">4.8/5</span><span class="sl">Water stress — 2nd highest. Southern California is in chronic drought.</span></div>
+    <div class="ib-stat"><span class="sv">$313/seat</span><span class="sl">Estimated cost of climate upgrades per seat</span></div>
+    <div class="ib-stat"><span class="sv">76%</span><span class="sl">City recycling rate — one of the best in the dataset</span></div>
+  </div>
+</div>
+<div class="pills">
+  <div class="pill">Score <span>56.8</span></div>
+  <div class="pill">Water stress <span>4.8/5 — Extremely High</span></div>
+  <div class="pill">Grid carbon per match <span>14.8 tonnes CO2</span></div>
+  <div class="pill">Investment plan <span>None published</span></div>
+</div>
+
+<!-- PIC 3 -->
+<div class="pic-wrap">
+  <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80" alt="Football on a grass pitch inside a large stadium at dusk with floodlights on" loading="lazy">
+  <div class="pic-caption">Estadio Azteca in Mexico City generates more landfill waste per match than any other venue — in a city already managing one of the worst water crises of any major urban area on earth. Photo: Unsplash</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CALLOUT — GRID GAP
+════════════════════════════════════════════ -->
+<h2>Same Tournament, 79 Times the Carbon Cost</h2>
+
+<p>Every stadium in this tournament runs air conditioning, floodlights, and full concession operations during each match. The energy demand is broadly comparable. The carbon cost is not.</p>
+
+<p>Kansas City's grid runs on coal and gas. Vancouver's is 98% renewable hydropower. One match in Kansas City produces 39.7 tonnes of carbon from electricity. One match in Vancouver produces 0.5 tonnes.</p>
+
+<p>The fixture looks identical on the schedule. The environmental footprint is 79 times larger in Kansas City.</p>
+
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>Venue</th>
+      <th>Carbon from electricity per match</th>
+      <th>What powers the grid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Arrowhead Stadium — Kansas City</td><td class="hi">39.7 tonnes CO2</td><td>Primarily coal and gas</td></tr>
+    <tr><td>Estadio Azteca — Mexico City</td><td class="hi">39.4 tonnes CO2</td><td>Mexico national grid</td></tr>
+    <tr><td>AT&T Stadium — Dallas</td><td class="hi">31.2 tonnes CO2</td><td>Texas coal and gas grid</td></tr>
+    <tr><td>Mercedes-Benz — Atlanta</td><td>29.1 tonnes CO2</td><td>Southeast US grid</td></tr>
+    <tr><td>Gillette Stadium — Boston</td><td>14.5 tonnes CO2</td><td>New England grid</td></tr>
+    <tr><td>BMO Field — Toronto</td><td class="lo">1.8 tonnes CO2</td><td>Nuclear and hydro</td></tr>
+    <tr><td>BC Place — Vancouver</td><td class="lo">0.5 tonnes CO2</td><td>98% renewable hydro</td></tr>
+  </tbody>
+</table>
+
+<p>The four lowest-carbon venues — Vancouver, Seattle, Toronto, and Boston — are all in the Pacific Northwest or northeast. The highest are all in Texas and central Mexico. The grid determines the carbon cost. The venues themselves have limited control over it.</p>
+
+<!-- ═══════════════════════════════════════════
+     EXPERT COMMENT
+════════════════════════════════════════════ -->
+<h2>Expert Comment</h2>
+<div class="expert">
+  <p>"Most coverage of the 2026 World Cup's environmental footprint tells the same total-emissions story. This index does something different: it shows how that burden lands differently depending on where each match is played."</p>
+  <p>"Miami is the finding that stands out. Third overall, hurricane season, the highest flood risk score of any host venue in this tournament. A serious investment commitment has not been made public. That is a gap worth knowing about."</p>
+  <p>"Four host cities across Mexico and Los Angeles host 26 matches combined in communities already under severe water stress. Most fans visiting those cities will not know they are managing a chronic water crisis. That context belongs in the conversation."</p>
+  <p>"79 times the electricity carbon between Kansas City and Vancouver. For matches that are the same in every other way. The tournament is identical. The carbon cost is not."</p>
+  <p class="expert-attr">Action Network Climate Data Analyst</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONCLUSION
+════════════════════════════════════════════ -->
+<h2>The Bottom Line</h2>
+
+<p>Houston and Dallas carry the heaviest burden — dangerous heat, a dirty grid, large stadiums, and more matches than anyone else. Both cities have committed investment plans.</p>
+
+<p>Miami is third. Worst flood risk in the tournament, hurricane season, no published plan.</p>
+
+<p>At the other end, Vancouver, Seattle, and Toronto benefit from clean electricity and lower summer temperatures. The gap between top and bottom in this ranking is wide — and it matters for players, for local communities, and for anyone tracking how venue conditions shape what happens on the pitch.</p>
+
+<p>The <a href="https://www.actionnetwork.com/online-sports-betting/reviews/world-cup-betting-promos">World Cup betting promos</a> are live across all 16 venues. The conditions on the ground vary more than most people realise.</p>
+
+<p class="final"><em>The fixture list runs to June and July. So does hurricane season.</em></p>
+
+<div class="links">
+  Following the tournament city by city? Find the latest World Cup odds, lines, and analysis at Action Network.
+</div>
+
+<!-- ═══════════════════════════════════════════
+     METHODOLOGY
+════════════════════════════════════════════ -->
+<div class="method">
+  <h2>How We Built This Index</h2>
+  <p><strong>The five measures.</strong> For each of the 16 host venues we looked at: July combined heat and humidity index, carbon intensity of the local electricity grid, baseline water stress (World Resources Institute score 0–5), flood risk (property and road exposure scored out of 10), and estimated volume of waste going to landfill per sold-out match.</p>
+  <p><strong>The scoring.</strong> We scaled each measure to a 0–100 range across all 16 venues, then weighted them: heat 25%, grid carbon 25%, water stress 20%, flood risk 15%, waste 15%. The city with the highest combined score is set to 100 and all others are relative to that.</p>
+  <p><strong>Where the data comes from.</strong> Heat and flood data for Miami, New York, and San Francisco come from First Street Foundation. Investment plan data and heat risk classifications come from a July 2025 report by Scientists for Global Responsibility, the Environmental Defense Fund, and Cool Down. Grid carbon figures come from the US EPA's eGRID database (2022), the International Energy Agency, and local grid operators for Canadian venues. Water stress from the World Resources Institute Aqueduct Atlas. City recycling rates from municipal government reports. Venue capacity and match counts from public tournament records. For 13 venues where independent flood data was not available, we used modelled estimates based on location and the risk descriptions in the 2025 report. Data verified May 2026.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SOURCES
+════════════════════════════════════════════ -->
+<div class="src">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.newweather.org" target="_blank">FIFA Climate Blind Spot report — Scientists for Global Responsibility, Environmental Defense Fund, Cool Down. New Weather Institute, July 2025</a></li>
+    <li><a href="https://www.epa.gov/egrid/download-data" target="_blank">US Environmental Protection Agency — eGRID Electricity Emissions Database 2022</a></li>
+    <li><a href="https://www.wri.org/applications/aqueduct/water-risk-atlas/" target="_blank">World Resources Institute — Aqueduct Water Risk Atlas 4.0</a></li>
+    <li><a href="https://www.iea.org" target="_blank">International Energy Agency — Electricity Information 2022</a></li>
+    <li><a href="https://www.bchydro.com" target="_blank">BC Hydro — Sustainability Report 2022</a></li>
+    <li><a href="https://www.canada.ca" target="_blank">Environment and Climate Change Canada — Ontario grid emissions 2022</a></li>
+    <li><a href="https://www.epa.gov/greenvehicles" target="_blank">US EPA — Greenhouse Gas Equivalencies Calculator 2025</a></li>
+    <li><a href="https://www.eia.gov/consumption/residential" target="_blank">US Energy Information Administration — Residential Energy Survey 2022</a></li>
+    <li><a href="https://firststreet.org" target="_blank">First Street Foundation — Flood Factor Risk Model</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup" target="_blank">Wikipedia — 2026 FIFA World Cup venues and match allocations</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQnLwxVUAkp6AD1eUD1MzVEVBOyJGfKqL9TPMFjkeynGDX6KrB36bBLhElzDB45JA/pubhtml" target="_blank">Action Network 2026 World Cup Climate Burden Study — full dataset, scoring methodology, and per-venue data</a></li>
+  </ul>
+</div>
+
+</div>
